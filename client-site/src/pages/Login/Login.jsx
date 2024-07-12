@@ -1,13 +1,11 @@
+import { Link } from "react-router-dom";
+
 const Login = () => {
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="container flex items-center justify-center min-h-screen px-6 mx-auto">
         <form className="w-full max-w-md">
-          <img
-            className="w-auto h-7 sm:h-8"
-            src="https://merakiui.com/images/logo.svg"
-            alt="Logo"
-          />
+         
 
           <h1 className="mt-3 text-2xl font-semibold text-gray-800 capitalize sm:text-3xl dark:text-white">
             Sign In
@@ -99,12 +97,12 @@ const Login = () => {
             </a>
 
             <div className="mt-6 text-center">
-              <a
-                href="#"
-                className="text-sm text-blue-500 hover:underline dark:text-blue-400"
+              <p
+              
+                className="text-sm text-blue-500 dark:text-blue-400"
               >
-                Don’t have an account yet? Sign up
-              </a>
+                Don’t have an account yet? <Link to="/register" className="hover:underline">Sign Up</Link>
+              </p>
             </div>
           </div>
         </form>
