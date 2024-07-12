@@ -1,19 +1,28 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Navbar = () => {
+  const { user, logoutUser } = useAuth();
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate()
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+
+  const handleLogout = () => {
+    logoutUser();
+    toast.success('Logout Successfully ')
+    navigate("/login")
+
   };
   return (
     <nav className="relative bg-white shadow dark:bg-gray-800">
       <div className="container px-6 py-4 mx-auto md:flex md:justify-between md:items-center">
         <div className="flex items-center justify-between">
-          <a  className="text-2xl font-bold text-black">
-            Siam Bhaii
-          </a>
+          <a className="text-2xl font-bold text-black">Siam Bhaii</a>
 
           {/* Mobile menu button */}
           <div className="flex lg:hidden">
@@ -65,38 +74,32 @@ const Navbar = () => {
           }`}
         >
           <div className="flex flex-col md:flex-row md:mx-6">
-            <a
-              className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0"
-              
-            >
+            <a className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0">
               Home
             </a>
-            <a
-              className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0"
-              
-            >
+            <a className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0">
               Shop
             </a>
-            <a
-              className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0"
-              
-            >
+            <a className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0">
               Contact
             </a>
-            <Link
-            to="/login"
-              className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0"
-              
-            >
-              Login
-            </Link>
+            {!user && (
+              <Link
+                to="/login"
+                className="my-2 text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-blue-500 dark:hover:text-blue-400 md:mx-4 md:my-0"
+              >
+                Login
+              </Link>
+            )}
+            {user && (
+              <button onClick={handleLogout} className="btn btn-sm">
+                Logout
+              </button>
+            )}
           </div>
 
           <div className="flex justify-center md:block">
-            <a
-              className="relative text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300"
-              
-            >
+            <a className="relative text-gray-700 transition-colors duration-300 transform dark:text-gray-200 hover:text-gray-600 dark:hover:text-gray-300">
               <svg
                 className="w-5 h-5"
                 viewBox="0 0 24 24"
