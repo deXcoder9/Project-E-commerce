@@ -1,1 +1,3 @@
 1.Be respectful
+2.Folder er name alaways small letter use krben but Component er Name First letter hhobe Capital letter
+file/folder formating bhalo vabe krben!
