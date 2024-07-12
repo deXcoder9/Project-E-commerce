@@ -1,9 +1,28 @@
+import { DrawerDemo } from "@/components/drawer/DrawerDemo";
+import { Link, NavLink } from "react-router-dom";
+
 const Navbar = () => {
+  const navLinks = <>
+  <li><a> <NavLink>Home</NavLink> </a></li>
+  <li><a> <NavLink>Contact</NavLink> </a></li>
+  <li><a> <NavLink>About us</NavLink> </a></li>
+  <li><a> <NavLink>Support</NavLink> </a></li>
+  </>;
+
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <a className="btn btn-ghost text-xl">daisyUI</a>
+        <div className="lg:hidden">
+        <DrawerDemo></DrawerDemo>
+        </div>
+        <Link to="/" className="btn btn-ghost text-xl">NovaNet Niche</Link>
       </div>
+      <div className="navbar-center hidden lg:flex">
+        <ul className="menu menu-horizontal  lg: px-1">
+         {navLinks}
+        </ul>
+      </div>
+
       <div className="flex-none">
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
@@ -51,6 +70,7 @@ const Navbar = () => {
               />
             </div>
           </div>
+
           <ul
             tabIndex={0}
             className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow"
