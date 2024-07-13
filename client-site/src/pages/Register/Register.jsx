@@ -1,12 +1,15 @@
 import { useForm } from "react-hook-form";
-import { LiaSpinnerSolid } from "react-icons/lia";
+import { LiaEye, LiaEyeSlash, LiaSpinnerSolid } from "react-icons/lia";
 import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import { FcGoogle } from "react-icons/fc";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 const Register = () => {
-  const { registerUser, loading, updateProfileInfo, setLoading } = useAuth();
+  const { registerUser, googleLogin, loading, updateProfileInfo, setLoading } =
+    useAuth();
+  const [showPass, setShowPass] = useState(false);
   const navigate = useNavigate();
   const {
     register,
@@ -23,7 +26,7 @@ const Register = () => {
         "https://i.ibb.co/PNbNQHp/freelancer-mostofa.jpg"
       );
       console.log(result);
-      toast.success('Register Successfully')
+      toast.success("Register Successfully");
       navigate("/");
     } catch (error) {
       console.log(error);
@@ -32,7 +35,19 @@ const Register = () => {
   };
 
   const handleGoogleSignIn = async () => {
-    console.log("hello");
+    try {
+      setLoading(true);
+      await googleLogin();
+      navigate("/");
+      toast.success("Login Successfully");
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
+  };
+
+  const handleShowPassword = () => {
+    setShowPass(!showPass);
   };
   return (
     <div className="flex mt-2 md:mt-5  w-full overflow-hidden justify-center items-center">
@@ -97,16 +112,31 @@ const Register = () => {
                   Password
                 </label>
               </div>
-              <input
-                {...register("password", {
-                  required: true,
-                  minLength: 6,
-                  pattern: /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).+$/,
-                })}
-                type="password"
-                placeholder="Password"
-                className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-[#2461E9] bg-gray-200 text-gray-900"
-              />
+              <div className="relative">
+                <input
+                  {...register("password", {
+                    required: true,
+                    minLength: 6,
+                    pattern: /^(?=.*[A-Z])(?=.*[!@#$%^&*(),.?":{}|<>]).+$/,
+                  })}
+                  type={showPass ? "text" : "password"}
+                  placeholder="Password"
+                  className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-[#2461E9] bg-gray-200 text-gray-900"
+                />
+                <div onClick={handleShowPassword} className="cursor-pointer">
+                  {showPass ? (
+                    <LiaEyeSlash
+                      size={25}
+                      className="absolute top-1/2 right-0 transform -translate-x-1/2 -translate-y-1/2"
+                    ></LiaEyeSlash>
+                  ) : (
+                    <LiaEye
+                      size={25}
+                      className="absolute top-1/2 right-0 transform -translate-x-1/2 -translate-y-1/2"
+                    ></LiaEye>
+                  )}
+                </div>
+              </div>
               {errors.password?.type === "required" && (
                 <small className="text-red-500">This field is required</small>
               )}

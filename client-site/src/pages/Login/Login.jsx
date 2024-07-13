@@ -73,6 +73,7 @@ const Login = () => {
                 placeholder="Password `"
                 className="w-full px-3 py-2 border rounded-md border-gray-300 focus:outline-[#2461E9] bg-gray-200 text-gray-900"
               />
+              
             </div>
           </div>
 
