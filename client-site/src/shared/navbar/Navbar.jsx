@@ -10,7 +10,7 @@ const Navbar = () => {
   </>;
 
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar absolute bg-white">
       <div className="flex-1">
         <div className="lg:hidden">
         <DrawerDemo></DrawerDemo>
